@@ -1,7 +1,7 @@
 package org.dreambot.util;
 
 import org.dreambot.api.methods.Calculations;
-
+// credit to https://github.com/Bonfire/Lost-Delayed-TBL-Framework for all this
 public class Timing {
     // Variables to hold our various timings
     public static int tickTimeout = 3;
