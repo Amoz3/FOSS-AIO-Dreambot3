@@ -1,5 +1,6 @@
 package org.dreambot.data;
 
-public class Activities {
-
+public enum Activities {
+    NONE,
+    MINING
 }
