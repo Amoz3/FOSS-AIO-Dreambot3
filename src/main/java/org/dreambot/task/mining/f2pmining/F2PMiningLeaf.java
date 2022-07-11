@@ -132,7 +132,5 @@ public class F2PMiningLeaf extends Leaf<Main> {
             MethodProvider.sleepUntil(() -> !Players.localPlayer().isAnimating(), 45000);
         }
         return Timing.loopReturn();
-
-        return Timing.loopReturn();
     }
 }
