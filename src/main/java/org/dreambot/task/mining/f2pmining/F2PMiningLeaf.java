@@ -116,6 +116,23 @@ public class F2PMiningLeaf extends Leaf<Main> {
             return Timing.loopReturn();
         }
 
+        if (!MineLocations.RIMMINGTON.LOCATION.contains(Players.localPlayer())) {
+            UtilProvider.stdWalk(MineLocations.RIMMINGTON.LOCATION);
+            return 100;
+        }
+
+        if (Inventory.isFull()) {
+            Inventory.dropAllExcept(x -> x.getName().contains("pickaxe"));
+            return Timing.loopReturn();
+        }
+
+        GameObject closestCopper = Rock.IRON.getRockWithOres(Rock.IRON);
+        if (closestCopper != null && Interaction.delayEntityInteract(closestCopper, Timing.getSleepDelay())) {
+            MethodProvider.sleepUntil(() -> Players.localPlayer().isAnimating(), 3000);
+            MethodProvider.sleepUntil(() -> !Players.localPlayer().isAnimating(), 45000);
+        }
+        return Timing.loopReturn();
+
         return Timing.loopReturn();
     }
 }
