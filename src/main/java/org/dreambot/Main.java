@@ -1,8 +1,13 @@
 package org.dreambot;
 
 import org.dreambot.api.script.AbstractScript;
+import org.dreambot.api.script.Category;
+import org.dreambot.api.script.ScriptManifest;
 import org.dreambot.framework.Tree;
+import org.dreambot.task.fallback.FallbackLeaf;
+import org.dreambot.task.timeout.TimeoutLeaf;
 
+@ScriptManifest(category = Category.MISC, name = "FOSS AIO", author = "camalCase", version = 0.0)
 public class Main extends AbstractScript {
     private final Tree<Main> tree = new Tree<>();
 
@@ -17,7 +22,11 @@ public class Main extends AbstractScript {
     }
 
     private void instantiateTree() {
-        tree.addBranches();
+        tree.addBranches(
+                new TimeoutLeaf(),
+
+                new FallbackLeaf()
+        );
     }
 
     @Override
