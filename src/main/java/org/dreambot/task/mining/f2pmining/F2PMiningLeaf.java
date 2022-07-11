@@ -12,6 +12,7 @@ import org.dreambot.api.methods.walking.impl.Walking;
 import org.dreambot.api.wrappers.items.Item;
 import org.dreambot.data.mining.Pickaxe;
 import org.dreambot.framework.Leaf;
+import org.dreambot.util.Interaction;
 import org.dreambot.util.Timing;
 /*
     goal of this leaf is to level as fast as possible
@@ -41,9 +42,10 @@ public class F2PMiningLeaf extends Leaf<Main> {
 
         // check we have a bank cache (so we cant find what the best pickaxe we have is), if we dont go open bank
         if (Bank.getLastBankHistoryCacheTime() <= 0) {
-            if (Walking.shouldWalk() && Bank.openClosest()) {
-                return 100;
+            if (Walking.shouldWalk()) {
+                Bank.openClosest();
             }
+            return 100;
         }
         // now we have a bank cache, we need to find our best owned pickaxe and make sure we have that equipped / in inv
         for (Pickaxe p : Pickaxe.values()) {
@@ -75,6 +77,16 @@ public class F2PMiningLeaf extends Leaf<Main> {
                 }
                 Bank.withdraw(bestOwnedPickaxe.ID);
             }
+            return Timing.loopReturn();
+        }
+
+        // from here we should only have our best pickaxe and an empty inventory
+        if (Bank.isOpen() && Bank.close()) {
+            return Timing.loopReturn();
+        }
+
+        if (Inventory.contains(bestOwnedPickaxe.ID) && bestOwnedPickaxe.ATKREQ <= Skills.getRealLevel(Skill.ATTACK)) {
+            Interaction.delayInventoryInteract(bestOwnedPickaxe.ID, "Wield", Timing.getSleepDelay());
         }
 
         return Timing.loopReturn();
