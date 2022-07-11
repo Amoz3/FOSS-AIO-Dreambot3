@@ -10,4 +10,12 @@ public class Config {
     }
 
     private Activities activity = Activities.NONE;
+
+    public Activities getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activities activity) {
+        this.activity = activity;
+    }
 }
