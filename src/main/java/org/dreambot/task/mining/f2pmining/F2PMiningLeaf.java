@@ -6,14 +6,20 @@ import org.dreambot.api.methods.container.impl.Inventory;
 import org.dreambot.api.methods.container.impl.bank.Bank;
 import org.dreambot.api.methods.container.impl.equipment.Equipment;
 import org.dreambot.api.methods.filter.Filter;
+import org.dreambot.api.methods.interactive.Players;
 import org.dreambot.api.methods.skills.Skill;
 import org.dreambot.api.methods.skills.Skills;
 import org.dreambot.api.methods.walking.impl.Walking;
+import org.dreambot.api.wrappers.interactive.GameObject;
 import org.dreambot.api.wrappers.items.Item;
+import org.dreambot.data.mining.MineLocations;
 import org.dreambot.data.mining.Pickaxe;
+import org.dreambot.data.mining.Rock;
 import org.dreambot.framework.Leaf;
 import org.dreambot.util.Interaction;
 import org.dreambot.util.Timing;
+import org.dreambot.util.UtilProvider;
+
 /*
     goal of this leaf is to level as fast as possible
     1 - 15 copper ore @ east lumbridge swamp
@@ -87,6 +93,27 @@ public class F2PMiningLeaf extends Leaf<Main> {
 
         if (Inventory.contains(bestOwnedPickaxe.ID) && bestOwnedPickaxe.ATKREQ <= Skills.getRealLevel(Skill.ATTACK)) {
             Interaction.delayInventoryInteract(bestOwnedPickaxe.ID, "Wield", Timing.getSleepDelay());
+            return Timing.loopReturn();
+        }
+
+        // mine copper @ lummy swamp east
+        if (Skills.getRealLevel(Skill.MINING) < 15) {
+            if (!MineLocations.LUMMY_SWAMP_EAST.LOCATION.contains(Players.localPlayer())) {
+                UtilProvider.stdWalk(MineLocations.LUMMY_SWAMP_EAST.LOCATION);
+                return 100;
+            }
+
+            if (Inventory.isFull()) {
+                Inventory.dropAllExcept(x -> x.getName().contains("pickaxe"));
+                return Timing.loopReturn();
+            }
+
+            GameObject closestCopper = Rock.COPPER.getRockWithOres(Rock.COPPER);
+            if (closestCopper != null && Interaction.delayEntityInteract(closestCopper, Timing.getSleepDelay())) {
+                MethodProvider.sleepUntil(() -> Players.localPlayer().isAnimating(), 3000);
+                MethodProvider.sleepUntil(() -> !Players.localPlayer().isAnimating(), 45000);
+            }
+            return Timing.loopReturn();
         }
 
         return Timing.loopReturn();
