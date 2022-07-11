@@ -23,8 +23,8 @@ public class F2PMiningLeaf extends Leaf<Main> {
     int cachedLvl = 0; // this is to skip the for loop until you have leveled up
     // used to detect if you have items you shouldnt when mining so you can go put them away
     Filter<Item> miningFilter = x -> !x.getName().toLowerCase().contains("ore")
-            || !x.getName().toLowerCase().contains("uncut")
-            || !x.getName().toLowerCase().contains("pickaxe");
+            && !x.getName().toLowerCase().contains("uncut")
+            && !x.getName().toLowerCase().contains("pickaxe");
     @Override
     public boolean isValid() {
         return true;
@@ -66,7 +66,7 @@ public class F2PMiningLeaf extends Leaf<Main> {
         }
 
         // if you need to get out your pickaxe or deposit items, do that.
-        if ((!Inventory.contains(bestOwnedPickaxe.ID) && Equipment.contains(bestOwnedPickaxe.ID))
+        if ((!Inventory.contains(bestOwnedPickaxe.ID) && !Equipment.contains(bestOwnedPickaxe.ID))
                 || Inventory.contains(miningFilter)) {
             if (Walking.shouldWalk() && Bank.openClosest()) {
                 if (Inventory.contains(miningFilter)) {
@@ -76,8 +76,6 @@ public class F2PMiningLeaf extends Leaf<Main> {
                 Bank.withdraw(bestOwnedPickaxe.ID);
             }
         }
-
-
 
         return Timing.loopReturn();
     }

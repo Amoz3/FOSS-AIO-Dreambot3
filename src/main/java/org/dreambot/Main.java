@@ -11,6 +11,8 @@ import org.dreambot.framework.Tree;
 import org.dreambot.paint.FluffeesPaint;
 import org.dreambot.paint.PaintInfo;
 import org.dreambot.task.fallback.FallbackLeaf;
+import org.dreambot.task.mining.F2PMiningBranch;
+import org.dreambot.task.mining.f2pmining.F2PMiningLeaf;
 import org.dreambot.task.timeout.TimeoutLeaf;
 
 import java.awt.*;
@@ -50,7 +52,7 @@ public class Main extends AbstractScript implements PaintInfo {
     private void instantiateTree() {
         tree.addBranches(
                 new TimeoutLeaf(),
-
+                new F2PMiningBranch().addLeafs(new F2PMiningLeaf()),
                 new FallbackLeaf()
         );
     }
