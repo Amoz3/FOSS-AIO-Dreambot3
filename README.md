@@ -21,7 +21,8 @@ more than 1 branch, eg mining might have F2PMiningBranch, P2PMiningBranch, Mothe
 
 * `org/dreambot/config` is for singleton classes holding global state
 * `org/dreambot/data` is mostly for enums and constants like locations or chosen activity
-
+* this script uses fluffees paint api for more flexible nice looking paint, 
+read more https://community.tribot.org/topic/76023-snippet-fluffees-paint-api/
 ## Behaviour
 Script should choose an activity (from `org/dreambot/data/Activities` enum) randomly every 2-4 hours 
 (arbitrary amount of time) that activity will be set in config singleton and the script will decide what to mine based
