@@ -86,7 +86,7 @@ public class Main extends AbstractScript implements PaintInfo {
     private void setActivity() {
         // todo this will need some kind of logic as more activities are added
         config.setActivity(Activities.MINING);
-        //Woodcutter by Dogcube
+        //Woodcutter by Dogcubee
         config.setActivity(Activities.WOODCUTTING);
     }
 
