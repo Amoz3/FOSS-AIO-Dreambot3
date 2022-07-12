@@ -23,7 +23,7 @@ import org.dreambot.util.UtilProvider;
 /*
     goal of this leaf is to level as fast as possible
     1 - 15 copper ore @ east lumbridge swamp
-    15 - 99 iron ore @
+    15 - 99 iron ore @ rimmington
  */
 public class F2PMiningLeaf extends Leaf<Main> {
     Pickaxe bestOwnedPickaxe;
